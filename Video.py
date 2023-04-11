@@ -32,7 +32,6 @@ def Video():
     # print(height)
     print(frame_width)
     print(frame_height)
-    files = "video_timing.txt"
     timing = open(files)
     time_rest = timing.readline()
     print(time_rest)
@@ -67,7 +66,7 @@ def Video():
     out.release()
     cv2.destroyAllWindows()
     time.sleep(4)
-    files_2 = "video_done.txt"
+
     done_chek = open(files_2, "w")
     done_chek.write("done")
     done_chek.close()
