@@ -68,9 +68,10 @@ def sub_main(service, root_path):
         start_time = time.time()
         # os.chdir(root_path)
 
-            email_name_cur = str(email.split('@')[0])
-            print(email_name)
-            GUI.print_log(email_name)
+            #email_name_cur = str(email.split('@')[0])
+            email_name_cur = "grisha.petuxov"
+            print(email_name_cur)
+            GUI.print_log(email_name_cur)
             file_p = root_path + "/Archived/" + email_name_cur
             launch_stat, pr_type, command_num, URL, errors_ = Launch(User_path_to_file=path_firmware, root_path=root_path)
             print("LAUNCH_STAT = ", launch_stat)

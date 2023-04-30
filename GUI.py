@@ -1,5 +1,4 @@
 import queue
-import tkinter
 import tkinter as tk
 from tkinter import *
 from tkinter import scrolledtext
@@ -12,8 +11,8 @@ from tkinter import messagebox
 from tkinter.ttk import Progressbar
 import queue
 
-import quickstart
-from quickstart import *
+#import quickstart
+#from quickstart import *
 import Boards_search
 
 # from Boards_search import *

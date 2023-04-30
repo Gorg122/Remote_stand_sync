@@ -7,3 +7,6 @@ venv
 video
 old
 quickstart.exe
+node_modules
+package.json
+package-lock.json
