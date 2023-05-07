@@ -15,7 +15,7 @@ from dateutil import parser
 #from googleapiclient.discovery import build
 from Sof_to_FPGA import FPGA_flash
 from Find_arduino import Find_Arduino
-from Server import Connect_to_server
+from Client import *
 
 
 def WebSocket_catch():
@@ -219,7 +219,12 @@ def Launch(User_path_to_file, root_path):
     # scetch_name = "scetch"
 
 #TODO
-    arg1, arg2, arg3 = Connect_to_server
+    command = ''
+    arg1 = 0
+    arg2 = False
+    arg3 = 0
+    command, arg1, arg2, arg3 = switch_event
+
     print(arg1, arg2, arg3)
     # Если файл сценария существует
     if os.path.exists(script_file_path):

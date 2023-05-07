@@ -1,40 +1,50 @@
-import socketio
-sio = socketio.Client()
+# import socketio
+# sio = socketio.Client()
+#
+# @sio.event(namespace = '/chat')
+# def connect():
+#
+#     print('connection established')
+#
+# @sio.event
+# def my_message(sid, data):
+#     sio.emit('connection', data, namespace='/chat', skip_sid=sid)
+#
+# @sio.event
+# def my_message(sid, data):
+#     sio.on('hello', data, namespace='/chat', skip_sid=sid)
+#     print(sid)
+#     print(data)
+#
+# @sio.on('hello', namespace='/chat')
+# def on_message(arg1):
+#     print('I received a message!')
+#     print(arg1)
+#
+# @sio.on('switch', namespace='/chat')
+# def on_message(arg1, arg2, arg3):
+#     print('THIS IS SWITCH')
+#     print("arg1 = ", arg1)
+#     print("arg2 = ", arg2)
+#     print("arg3 = ", arg3)
+#
+#
+# @sio.on('button', namespace='/chat')
+# def on_message(arg1, arg2):
+#     print('THIS IS BUTTON')
+#     print("arg1 = ", arg1)
+#     print("arg2 = ", arg2)
+#
+# def my_custom():
+#     print("I send smth")
+# sio.connect('http://localhost:9999', namespaces=['/chat'])
 
-@sio.event(namespace = '/chat')
-def connect():
+from Client import*
 
-    print('connection established')
+command = ''
+arg1 = 0
+arg2 = False
+arg3 = 0
+command, arg1, arg2, arg3 = switch_event()
 
-@sio.event
-def my_message(sid, data):
-    sio.emit('connection', data, namespace='/chat', skip_sid=sid)
-
-@sio.event
-def my_message(sid, data):
-    sio.on('hello', data, namespace='/chat', skip_sid=sid)
-    print(sid)
-    print(data)
-
-@sio.on('hello', namespace='/chat')
-def on_message(arg1):
-    print('I received a message!')
-    print(arg1)
-
-@sio.on('switch', namespace='/chat')
-def on_message(arg1, arg2, arg3):
-    print('THIS IS SWITCH')
-    print("arg1 = ", arg1)
-    print("arg2 = ", arg2)
-    print("arg3 = ", arg3)
-
-
-@sio.on('button', namespace='/chat')
-def on_message(arg1, arg2):
-    print('THIS IS BUTTON')
-    print("arg1 = ", arg1)
-    print("arg2 = ", arg2)
-
-def my_custom():
-    print("I send smth")
-sio.connect('http://localhost:9999', namespaces=['/chat'])
+print(command, arg1, arg2, arg3)

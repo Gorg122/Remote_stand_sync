@@ -57,12 +57,12 @@
 #
 # asyncio.run(main())
 
-import socketio
-sio = socketio.Client()
-@sio.event
-def connect():
-
-    print('connection established')
+# import socketio
+# sio = socketio.Client()
+# @sio.event
+# def connect():
+#
+#     print('connection established')
 
 # @sio.event
 # def message(data):
@@ -74,29 +74,55 @@ def connect():
 #     #print('arg2')
 #     #print('arg3')
 
-@sio.on('*')
-def catch_all(event, data):
-    print(event)
-    print(data)
-    pass
+# @sio.on('*')
+# def catch_all(event, data):
+#     print(event)
+#     print(data)
+#     pass
 # sio.emit('pipster')
 #@sio.emit('my message', {'foo': 'bar'})
 # def catch_all(event, data):
 #     print(event)
 #     print(data)
 #     pass
-@sio.event
-def my_message(data):
+# @sio.event
+# def my_message(data):
+#
+#
+#     print('message received with ', data)
+#
+#
+#     #sio.emit('my response', {'response': 'my response'})
+# @sio.event
+# def disconnect():
+#
+#     print('disconnected from server')
+# sio.connect('http://localhost:9999')
+# sio.wait()
+
+import socket
 
 
-    print('message received with ', data)
+from typing import Union
+
+from fastapi import FastAPI, File, UploadFile
+from typing_extensions import Annotated
+
+app = FastAPI()
 
 
-    #sio.emit('my response', {'response': 'my response'})
-@sio.event
-def disconnect():
+@app.post("/files/")
+async def create_file(file: Annotated[Union[bytes, None], File()] = None):
+    if not file:
+        return {"message": "No file sent"}
+    else:
+        return {"file_size": len(file)}
 
-    print('disconnected from server')
-sio.connect('http://localhost:9999')
-sio.wait()
+
+@app.post("/uploadfile/")
+async def create_upload_file(file: Union[UploadFile, None] = None):
+    if not file:
+        return {"message": "No upload file sent"}
+    else:
+        return {"filename": file.filename}
 
