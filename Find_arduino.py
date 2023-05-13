@@ -1,12 +1,9 @@
-import sys
 import os
 import warnings
 import time
 import serial.tools.list_ports
 import subprocess
 import configparser
-
-import GUI
 
 
 def Find_Arduino(root_path):
@@ -27,7 +24,8 @@ def Find_Arduino(root_path):
         Arduino_path_1 = Arduino_path_1
 
     else:
-        find_in = "C:/Program Files (x86)/Arduino/hardware/tools/avr"  # Задаем корневую папку
+        #find_in = "C:/Program Files (x86)/Arduino/hardware/tools/avr"  # Задаем корневую папку
+        find_in = "/home/unit1/Arduino/arduino-1.8.15/hardware/tools/avr/"
         name = "avrdude.exe"
         for root, dirs, files in os.walk(find_in):  # В цикле проходим все папки и файлы в корневой папке
             if name in files:
@@ -61,6 +59,7 @@ def Find_Arduino(root_path):
 
     if os.path.exists(Arduino_hex_path):  # Проверяем существует ли данный путь исполняемых файлов
         Arduino_hex_path = Arduino_hex_path
+        print(Arduino_hex_path)
 
     else:
         find_in = Project_path  # Задаем корневую папку
@@ -90,8 +89,10 @@ def Find_Arduino(root_path):
     # Поиск активных COM портов
     arduino_ports = [
         p.device
+        #print(p.device)
         for p in serial.tools.list_ports.comports()
-        if Arduino_name in p.description  # Поиск марки Arduino в списке подключенных устройств.
+        #if Arduino_name in p.description  # Поиск марки Arduino в списке подключенных устройств.
+        if Arduino_name in p[0]  # Поиск марки Arduino в списке подключенных устройств.
     ]
     # Обработка исключений
     if not arduino_ports:
@@ -101,22 +102,27 @@ def Find_Arduino(root_path):
 
     # Поиск подключенной платы Arduino в списке подключенных устройств
     for p in serial.tools.list_ports.comports():
-        if Arduino_name in p.description:
+        #print(p.split(12)[1])
+        stro = p[0]
+        print(stro)
+        if Arduino_name in p[0]:
+            print("нашел плату")
             while int1 < 9:  # В цикле проходим порты от "COM0" до "COM8".
 
-                if Arduino_name in p[1]:  # Ищем подходящее название Arduino в p[1].
+                if Arduino_name in p[0]:  # Ищем подходящее название Arduino в p[1].
                     str2 = str(int1)  # Конвертируем номер порта из int в str:
-                    Arduino_port = "COM" + str2  # Соединяем номер порта с его названием.
-
-                if Arduino_name in p[1] and Arduino_port in p[
-                    1]:  # Ещё раз ищем название платы Arduino и номер COM порта"
-                    # print ("Найдена  " + Arduino_name + Arduino_port + "\n")
-                    int1 = 9  # Выходим из цикла.
-
-                if int1 == 8:
-                    # print ("Плата не найдена")
-                    sys.exit()  # Прекращение выполнения скрипта.
-
+                    print(str2)
+                    print(Arduino_name)
+                    #Arduino_port = "COM" + str2  # Соединяем номер порта с его названием.
+                    Arduino_port = Arduino_name
+                # if Arduino_name in p[0] and Arduino_port in p[0]:  # Ещё раз ищем название платы Arduino и номер COM порта"
+                #     print ("Найдена  " + Arduino_name + Arduino_port + "\n")
+                #     int1 = 9  # Выходим из цикла.
+                #
+                # if int1 == 8:
+                #     # print ("Плата не найдена")
+                #     sys.exit()  # Прекращение выполнения скрипта.
+                #
                 int1 = int1 + 1
 
     time.sleep(1)  # Выставляем задержку в 1 секунду.
@@ -182,4 +188,4 @@ def Find_Arduino(root_path):
         return (Arduino_port)
     else:
         return (Error)
-print(Find_Arduino())
+#print(Find_Arduino(root_path="/home/unit1/Project_main"))

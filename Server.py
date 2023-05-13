@@ -104,7 +104,8 @@ import socket
 
 
 from typing import Union
-
+import uvicorn
+import shutil
 from fastapi import FastAPI, File, UploadFile
 from typing_extensions import Annotated
 
@@ -119,10 +120,16 @@ async def create_file(file: Annotated[Union[bytes, None], File()] = None):
         return {"file_size": len(file)}
 
 
+# @app.post("/uploadfile/")
+# async def create_upload_file(file: Union[UploadFile, None] = None):
+#     if not file:
+#         return {"message": "No upload file sent"}
+#     else:
+#         return {"filename": file.filename}
+#if name == "Server.py":
+#    uvicorn.run(app, host="0.0.0.0", port=9999)
 @app.post("/uploadfile/")
-async def create_upload_file(file: Union[UploadFile, None] = None):
-    if not file:
-        return {"message": "No upload file sent"}
-    else:
-        return {"filename": file.filename}
-
+async def root(file: UploadFile=File(...)):
+    with open('Hex/test_hex', 'wb') as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    return file.filename

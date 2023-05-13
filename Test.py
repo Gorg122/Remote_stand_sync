@@ -39,12 +39,30 @@
 #     print("I send smth")
 # sio.connect('http://localhost:9999', namespaces=['/chat'])
 
-from Client import*
+# from Client import*
+#
+# command = ''
+# arg1 = 0
+# arg2 = False
+# arg3 = 0
+# command, arg1, arg2, arg3 = switch_event()
+#
+# print(command, arg1, arg2, arg3)
 
-command = ''
-arg1 = 0
-arg2 = False
-arg3 = 0
-command, arg1, arg2, arg3 = switch_event()
+import serial
 
-print(command, arg1, arg2, arg3)
+connected = False
+
+ser = serial.Serial("/dev/ttyUSB0", 9600)
+
+while not connected:
+    serin = ser.read()
+    connected = True
+    print("Arduino connected")
+
+ser.write("1")
+
+while ser.read() == '1':
+    ser.read()
+    print("Arduino connected")
+ser.close()
