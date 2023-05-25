@@ -188,4 +188,4 @@ def Find_Arduino(root_path):
         return (Arduino_port)
     else:
         return (Error)
-#print(Find_Arduino(root_path="/home/unit1/Project_main"))
+print(Find_Arduino(root_path="/home/unit1/Project_main"))

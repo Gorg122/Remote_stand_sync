@@ -8,7 +8,7 @@ from GUI import *
 def Board_search():
     global proseed_flag
 
-    root_path = "C:/Project_930/Project_main"
+    root_path = "/home/unit1/Project_main"
     config = configparser.ConfigParser()
     config_path = root_path + '/' + "Config.ini"
     config.read(config_path)
@@ -19,7 +19,7 @@ def Board_search():
 
         # В случае если такого пути нет, производим поиск пути исполняемых файлов в корневой папке
     else:
-        find_in = "C:/intelFPGA_lite"  # Задаем корневую папку
+        find_in = "home/unit1/intelFPGA_lite"  # Задаем корневую папку
         name = "quartus_pgm.exe"
         for root, dirs, files in os.walk(find_in):  # В цикле проходим все папки и файлы в корневой папке
             if name in files:
